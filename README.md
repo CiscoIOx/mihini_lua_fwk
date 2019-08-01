@@ -10,6 +10,7 @@ This github project aims to share the details on how to use Eclipse Mihini proje
 # Option 1 - Workspace setup using git clone
 ```
 $ git clone <this project>
+# copy your main.lua file into this root level project dir
 $ docker build -t lua_app
 
 Note: we are using multiarch docker image with qemu-static emulation. Check out this link for how to setup qemu-user-static for differen OS
@@ -22,7 +23,7 @@ https://www.ecliptik.com/Cross-Building-and-Running-Multi-Arch-Docker-Images/
 3. Check for source code archives under mihini/downloads/ dir
 4. Extract an archive lets say org."eclipse.mihini-incubation-0.9.zip"
 5. Now under the extracted zip file dir, look for another zip file under org.eclipse.mihini-incubation-0.9/Source, extract that as well under Source dir it self.
-6. Lets keep current working dir as Source/ 
+6. Lets keep current working dir as mihini/downloads/ which has those two zip files extracted.
 7. Edit the file Source/org.eclipse.mihini-incubation-0.9/cmake/toolchain.default.cmake uncomment and update below entries
 
 ```
@@ -32,8 +33,9 @@ SET(CMAKE_C_COMPILER   /usr/bin/gcc)
 SET(CMAKE_CXX_COMPILER /usr/bin/g++)
 ...
 ```
-8. Update Source/org.eclipse.mihini-0.9/tools/appmon_daemon/appmon_daemon.c line number 976 from UINT16_MAX to UINT_MAX.
-9. Copy rest of the files in root level of this git project to Source/ dir.
+8. Update mihini/downloads/eclipse.mihini-incubation-0.9/Source/org.eclipse.mihini-0.9/tools/appmon_daemon/appmon_daemon.c line number 976 from UINT16_MAX to UINT_MAX.
+9. Copy rest of the files in root level of this git project to mihini/downloads/ dir.
+10. Copy your main.lua file into this root level project dir
 10. $ docker build -t lua_app
 
 # IOx package descriptor file (1 network interface, 1 serial device requested)
@@ -76,7 +78,7 @@ Note: We will be building this IOx package as ext2 filesystem which requires lin
 3. Once the docker image is built on development machine, copy the package.yaml to working dir. Then issue below command to build IOx app from docker image
 
 ```
-$ ioxclient docker package -p ext2 <dockerimagename> . 
+$ ioxclient docker package -p ext2 <previously_built_dockerimagename> . 
 
 ```
 Now you should have IOx app package named "package.tar" which can be deployed on Cisco IR1101.
