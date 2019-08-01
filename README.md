@@ -17,7 +17,7 @@ https://www.eclipse.org/projects/archives.php
 6. Lets keep current working dir as Source/ 
 7. Edit the file Source/org.eclipse.mihini-incubation-0.9/cmake/toolchain.default.cmake to have below contents
 
-`# this one is important
+'''# this one is important
 #SET(CMAKE_SYSTEM_NAME Linux)
 #this one not so much
 #SET(CMAKE_SYSTEM_VERSION 1)
@@ -36,4 +36,4 @@ SET(CMAKE_CXX_COMPILER /usr/bin/g++)
 #SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 
 SET(DEFAULT_BUILD true)
-`
+'''
