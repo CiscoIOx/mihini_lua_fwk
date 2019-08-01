@@ -1,0 +1,290 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; }
+code > span.dt { color: #204a87; }
+code > span.dv { color: #0000cf; }
+code > span.bn { color: #0000cf; }
+code > span.fl { color: #0000cf; }
+code > span.ch { color: #4e9a06; }
+code > span.st { color: #4e9a06; }
+code > span.co { color: #8f5902; font-style: italic; }
+code > span.ot { color: #8f5902; }
+code > span.al { color: #ef2929; }
+code > span.fu { color: #000000; }
+code > span.er { font-weight: bold; }
+  </style>
+  <link rel="stylesheet" href="default.css" type="text/css" />
+  <script type="text/javascript">
+  
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-594061-12']);
+    _gaq.push(['_setDomainName', 'eclipse.org']);
+    _gaq.push(['_trackPageview']);
+  
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  
+  </script>
+</head>
+<body>
+<h1 id="monitoring">Monitoring</h1>
+<h4 id="monitoring-variables">Monitoring variables</h4>
+<p>Each monitoring script has its own execution environment. It means that writing a lua variable will not be visible from another monitoring script.</p>
+<p>In addition to the individual environment the Monitoring engine adds several tables where to read and write other variables.</p>
+<ul>
+<li><strong>system</strong>: this table holds all system variables. Usually those variables are used in read only.</li>
+<li><strong>user</strong>: this table holds all the user defined variables.</li>
+<li><strong>global</strong>: this is a non-monitored table. It can be use to store static data.</li>
+<li><strong>persist</strong>: this is a non-monitored and persisted table. It can be used to store data that will survive reboots.</li>
+</ul>
+<h4 id="monitoring-variables-access">Monitoring variables access</h4>
+<p>Let's say that in the following examples we want to get the Cellular RSSI value.</p>
+<h5 id="in-a-script">in a script:</h5>
+<p>In a script all variables can be accessed in a <em>natural</em> Lua way.</p>
+<pre class="sourceCode lua"><code class="sourceCode lua"><span class="kw">local</span> <span class="kw">rssi</span> <span class="ot">=</span> <span class="kw">system</span><span class="ot">.</span><span class="kw">cellular</span><span class="ot">.</span><span class="kw">rssi</span></code></pre>
+<h5 id="using-data-reading">using Data Reading:</h5>
+<p>M3DA ReadNode command can be used to read any varaible.</p>
+<pre class="sourceCode lua"><code class="sourceCode lua"><span class="kw">Command</span> <span class="kw">name</span>: <span class="kw">ReadNode</span>
+<span class="kw">Command</span> <span class="kw">path</span>: @<span class="kw">sys</span>
+<span class="kw">Command</span> <span class="kw">arg</span><span class="ot">#</span><span class="dv">1</span>: <span class="kw">monitoring</span><span class="ot">.</span><span class="kw">system</span><span class="ot">.</span><span class="kw">cellular</span><span class="ot">.</span><span class="kw">rssi</span></code></pre>
+<h5 id="in-agent-context">in Agent context:</h5>
+<p>In a global Lua environement (in Agent code or in the Lua shell attached to the Agent).</p>
+<pre class="sourceCode lua"><code class="sourceCode lua"><span class="kw">local</span> <span class="kw">rssi</span> <span class="ot">=</span> <span class="kw">Monitoring</span><span class="ot">.</span><span class="kw">vars</span><span class="ot">.</span><span class="kw">system</span><span class="ot">.</span><span class="kw">cellular</span><span class="ot">.</span><span class="kw">rssi</span></code></pre>
+<h4 id="system-variables">System variables</h4>
+<p>The following system variables are available, depending on what the different hardware may provide.</p>
+<h5 id="cellular">Cellular</h5>
+<table>
+<col width="19%" />
+<col width="14%" />
+<col width="26%" />
+<col width="40%" />
+<thead>
+<tr class="header">
+<th align="left">Variable name</th>
+<th align="left">Variable Type</th>
+<th align="left">Variable description</th>
+<th align="left">Available on</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">cellurar.rssi</td>
+<td align="left">integer</td>
+<td align="left">Cellular RSSI level</td>
+<td align="left">On any device that support the standard AT+CSQ AT command</td>
+</tr>
+<tr class="even">
+<td align="left">cellular.ber</td>
+<td align="left">integer</td>
+<td align="left">Cellular BER level</td>
+<td align="left">On any device that support the standard AT+CSQ AT command</td>
+</tr>
+<tr class="odd">
+<td align="left">cellular.imei</td>
+<td align="left">string</td>
+<td align="left">Cellular IMEI</td>
+<td align="left">On any device that support the standard AT+CGSN AT command</td>
+</tr>
+<tr class="even">
+<td align="left">cellular.imsi</td>
+<td align="left">string</td>
+<td align="left">SIM IMSI number</td>
+<td align="left">On any device that support the standard AT+CIMI AT command</td>
+</tr>
+</tbody>
+</table>
+<h5 id="power">Power</h5>
+<table>
+<col width="19%" />
+<col width="14%" />
+<col width="26%" />
+<col width="40%" />
+<thead>
+<tr class="header">
+<th align="left">Variable name</th>
+<th align="left">Variable Type</th>
+<th align="left">Variable description</th>
+<th align="left">Available on</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">batterylevel</td>
+<td align="left">integer</td>
+<td align="left">Level of charge of the device battery</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">externalpower</td>
+<td align="left">boolean</td>
+<td align="left">true if the device is powered by an external source</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<h5 id="memory-cpu">Memory / CPU</h5>
+<table>
+<col width="18%" />
+<col width="13%" />
+<col width="30%" />
+<col width="37%" />
+<thead>
+<tr class="header">
+<th align="left">Variable name</th>
+<th align="left">Variable Type</th>
+<th align="left">Variable description</th>
+<th align="left">Available on</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">luaramusage</td>
+<td align="left">integer</td>
+<td align="left">Quantity of memory used by the Lua VM (the one running the agent) <br />The value is the one returned by collectgarbage(&quot;count&quot;) preceded by a collectgarbage(&quot;collect&quot;) in order to provided consistent numbers. The direct consequence is that reading this variable has a non null CPU cost. Use sparingly.</td>
+<td align="left">All (included in standard lua)</td>
+</tr>
+<tr class="even">
+<td align="left">totalramavailable</td>
+<td align="left">integer</td>
+<td align="left">Total quantity of RAM available on the system</td>
+<td align="left">Linux</td>
+</tr>
+<tr class="odd">
+<td align="left">totalramused</td>
+<td align="left">integer</td>
+<td align="left">Total quantity of RAM used on the system</td>
+<td align="left">Linux</td>
+</tr>
+<tr class="even">
+<td align="left">cpuload</td>
+<td align="left">integer</td>
+<td align="left">Average CPU load</td>
+<td align="left">Linux</td>
+</tr>
+<tr class="odd">
+<td align="left">totalflashavailable</td>
+<td align="left">integer</td>
+<td align="left">Total quantity of flash available on the system</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">totalflashused</td>
+<td align="left">integer</td>
+<td align="left">Total quantity of flash used on the system</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<h5 id="networkmanager">NetworkManager</h5>
+<table>
+<col width="20%" />
+<col width="13%" />
+<col width="30%" />
+<col width="35%" />
+<thead>
+<tr class="header">
+<th align="left">Variable name</th>
+<th align="left">Variable Type</th>
+<th align="left">Variable description</th>
+<th align="left">Available on</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">netman.BEARERNAME.connected</td>
+<td align="left">boolean</td>
+<td align="left">connection state of the bearer</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">netman.BEARERNAME.ipaddr</td>
+<td align="left">string</td>
+<td align="left">ip address of the bearer</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">netman.BEARERNAME.hwaddr</td>
+<td align="left">string</td>
+<td align="left">MAC address of the bearer</td>
+<td align="left">Ethernet bearer</td>
+</tr>
+<tr class="even">
+<td align="left">netman.BEARERNAME.netmask</td>
+<td align="left">string</td>
+<td align="left">netmask address of the bearer</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">netman.BEARERNAME.gw</td>
+<td align="left">string</td>
+<td align="left">gateway address of the bearer</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">netman.BEARERNAME.nameserver1</td>
+<td align="left">string</td>
+<td align="left">dns address #1 (there can be several dns address, usually 2)</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">netman.BEARERNAME.mountdate</td>
+<td align="left">number</td>
+<td align="left">timestamp of the last successful mount</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">netman.BEARERNAME.mountretries</td>
+<td align="left">number</td>
+<td align="left">number of retries used for the last successful mount</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">netman.BEARERNAME.RX</td>
+<td align="left">number</td>
+<td align="left">number of bytes received by this bearer</td>
+<td align="left"><strong>Linux only</strong></td>
+</tr>
+<tr class="even">
+<td align="left">netman.BEARERNAME.TX</td>
+<td align="left">number</td>
+<td align="left">number of bytes transmitted by this bearer</td>
+<td align="left"><strong>Linux only</strong></td>
+</tr>
+<tr class="odd">
+<td align="left">netman.defaultbearer</td>
+<td align="left">string</td>
+<td align="left">Default (=selected) bearer: bearer used as default route, variable value is the BEARERNAME</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<h4 id="monitoring-script-engine-api">Monitoring Script Engine API</h4>
+<pre class="sourceCode lua"><code class="sourceCode lua">install<span class="ot">(</span><span class="kw">name</span>, <span class="kw">script</span>, <span class="kw">autoenable</span><span class="ot">)</span></code></pre>
+<p>Install a new monitoring script.<br /><strong>name</strong> is the name identifying the monitoring script<br /><strong>script</strong> is the script content as a Lua string<br /><strong>autoenable</strong> when set to true (i.e. non false value), the script is installed and will be automatically enabled on next Agent boot.<br />when set to &quot;now&quot;, the script is started right now, but not installed nor enabled (test purpose),<br />when set to false value, the script is installed but not enable for the next Agent boot,<br />when set to nil (or absent), the enable flag will stay unchanged (meaning equal to the flag of a script that was installed with the same name)</p>
+<pre class="sourceCode lua"><code class="sourceCode lua">uninstall<span class="ot">(</span><span class="kw">name</span><span class="ot">)</span></code></pre>
+<p>Uninstall an installed monitoring script.<br /><strong>name</strong> is the name identifying the monitoring script to uninstall</p>
+<pre class="sourceCode lua"><code class="sourceCode lua">uninstallall<span class="ot">()</span></code></pre>
+<p>Uninstall <strong>all</strong> installed monitoring scripts.</p>
+<pre class="sourceCode lua"><code class="sourceCode lua">enable<span class="ot">(</span><span class="kw">name</span><span class="ot">)</span></code></pre>
+<p>Enable an installed monitoring script: the script will be started on next Agent boot.<br /><strong>name</strong> is the name identifying the monitoring script to enable</p>
+<pre class="sourceCode lua"><code class="sourceCode lua">disable<span class="ot">(</span><span class="kw">name</span><span class="ot">)</span></code></pre>
+<p>Disable an installed monitoring script: the script will not be started on next Agent boot.<br /><strong>name</strong> is the name identifying the monitoring script to disable<br />Note: The script remains installed</p>
+<pre class="sourceCode lua"><code class="sourceCode lua">registerextvar<span class="ot">(</span><span class="kw">var</span>, <span class="kw">pushenable</span>, <span class="kw">getvar</span>, <span class="kw">varlist</span><span class="ot">)</span></code></pre>
+<p>This function allows to add additional variables in the monitored tables<br /><strong>pushenable</strong> and <strong>getvar</strong> are functions.<br /><strong>pushenable</strong> will be called by the monitoring engine in order to enable asynchronous mode<br /><strong>getvar</strong> will be called if asynchronous push mode is not enabled and the variable is read.<br /><strong>varlist</strong> argument must be provided only when registering group of variables. <strong>varlist</strong> must be either a table (array) that list the names of the variables, or a function that returns that table.<br />When successful, this function returns the table that holds the monitored variable or group of variables<br />notes:<br />if <strong>pushenable</strong> is a string or a number, then <strong>getvar</strong> is ignored and the value of <strong>pushenable</strong> is set as a static value into the monitoring variable table<br /><strong>pushenable</strong> and <strong>getvar</strong> can be equal to nil, restricting the usage of that variable, according to what is nil<br /><strong>var</strong> can actually a path designating a group of variables, in that case it must have a trailing '.'. ex 'system.cellular.'<br />the actual tables will be automatically created by this function<br /><strong>pushenable</strong> and <strong>getvar</strong>, when defined as functions will be called with two parameters: the path, and the variable name. <strong>pushenable</strong> may be called with a nil variable name, meaning the pushenable is on the whole group (=path) of variable.</p>
+</body>
+</html>

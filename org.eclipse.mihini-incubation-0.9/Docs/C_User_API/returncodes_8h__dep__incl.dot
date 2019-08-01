@@ -1,0 +1,21 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="FreeSans",fontsize=10,labelfontname="FreeSans",labelfontsize=10];
+  node [fontname="FreeSans",fontsize=10,shape=record];
+  Node1 [label="returncodes.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node1 -> Node2 [dir=back,color="midnightblue",fontsize=10,style="solid",fontname="FreeSans"];
+  Node2 [label="swi_dset.h",height=0.2,width=0.4,color="black",URL="$swi__dset_8h.html",tooltip="Data Set API provides ways to manipulate incoming data."];
+  Node2 -> Node3 [dir=back,color="midnightblue",fontsize=10,style="solid",fontname="FreeSans"];
+  Node3 [label="swi_airvantage.h",height=0.2,width=0.4,color="black",URL="$swi__airvantage_8h.html",tooltip="This API enables interaction with Sierra Wireless AirVantage Services Platform."];
+  Node2 -> Node4 [dir=back,color="midnightblue",fontsize=10,style="solid",fontname="FreeSans"];
+  Node4 [label="swi_devicetree.h",height=0.2,width=0.4,color="black",URL="$swi__devicetree_8h.html",tooltip="This file gives an set/get/notify API on the device tree."];
+  Node1 -> Node3 [dir=back,color="midnightblue",fontsize=10,style="solid",fontname="FreeSans"];
+  Node1 -> Node5 [dir=back,color="midnightblue",fontsize=10,style="solid",fontname="FreeSans"];
+  Node5 [label="swi_update.h",height=0.2,width=0.4,color="black",URL="$swi__update_8h.html",tooltip="This API provides functionalities to control an update process in the Agent context..."];
+  Node1 -> Node4 [dir=back,color="midnightblue",fontsize=10,style="solid",fontname="FreeSans"];
+  Node1 -> Node6 [dir=back,color="midnightblue",fontsize=10,style="solid",fontname="FreeSans"];
+  Node6 [label="swi_sms.h",height=0.2,width=0.4,color="black",URL="$swi__sms_8h.html",tooltip="This API provides functionalities to send and receive SMS."];
+  Node1 -> Node7 [dir=back,color="midnightblue",fontsize=10,style="solid",fontname="FreeSans"];
+  Node7 [label="swi_system.h",height=0.2,width=0.4,color="black",URL="$swi__system_8h.html",tooltip="This API provides operating system level facilities."];
+}

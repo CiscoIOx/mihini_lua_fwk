@@ -1,0 +1,597 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<link rel="stylesheet" href="stylesheet.css" type="text/css"/>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-594061-12']);
+  _gaq.push(['_setDomainName', 'eclipse.org']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>	</head>
+<body>
+<div id="container">
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div>
+<div id="main">
+	<div id="navigation">
+		<h2>Modules</h2>
+			<ul><li>
+				<a href="index.html">index</a>
+			</li></ul>
+		<ul>
+					<li><a href="checks.html">checks</a></li>
+					<li><a href="coroutine.html">coroutine</a></li>
+					<li><a href="debug.html">debug</a></li>
+					<li><a href="devicetree.html">devicetree</a></li>
+					<li><a href="global.html">global</a></li>
+					<li>gpio</li>
+					<li><a href="io.html">io</a></li>
+					<li><a href="lfs.html">lfs</a></li>
+					<li><a href="log.html">log</a></li>
+					<li><a href="lua.html">lua</a></li>
+					<li><a href="math.html">math</a></li>
+					<li><a href="modbus.html">modbus</a></li>
+					<li><a href="modbustcp.html">modbustcp</a></li>
+					<li><a href="niltoken.html">niltoken</a></li>
+					<li><a href="os.html">os</a></li>
+					<li><a href="pack.html">pack</a></li>
+					<li><a href="package.html">package</a></li>
+					<li><a href="persist.html">persist</a></li>
+					<li><a href="racon.html">racon</a></li>
+					<li><a href="racon.asset.html">racon.asset</a></li>
+					<li><a href="racon.table.html">racon.table</a></li>
+					<li><a href="sched.html">sched</a></li>
+					<li><a href="serial.html">serial</a></li>
+					<li><a href="sms.html">sms</a></li>
+					<li><a href="socket.html">socket</a></li>
+					<li><a href="string.html">string</a></li>
+					<li><a href="system.html">system</a></li>
+					<li><a href="table.html">table</a></li>
+					<li><a href="timer.html">timer</a></li>
+					<li><a href="utils.loader.html">utils.loader</a></li>
+					<li><a href="utils.ltn12.source.html">utils.ltn12.source</a></li>
+					<li><a href="utils.path.html">utils.path</a></li>
+					<li><a href="utils.table.html">utils.table</a></li>
+		</ul>
+	</div>
+	<div id="content">
+   <h1>Module <code>gpio</code></h1>
+   
+<p>The gpio library enables to interact with GPIOs.</p>
+
+   
+
+<p>It provides <code>read</code>, <code>write</code>, and <code>register</code> methods,
+as well as GPIO configuration and listing features.</p>
+
+<p>This module is mainly based on Linux kernel userspace mapping to act on GPIOs.<br />
+See <a href="http://kernel.org/doc/Documentation/gpio.txt">Kernel GPIO doc</a>, "Sysfs Interface
+for Userspace" chapter.<br />
+Please check you device system comes with this capability before using this module.
+Also, pay attention to access rights to /sys/class/gpio files, and check that the process
+running this module has correct user rights to access those files.</p>
+
+
+	<h2><a id="#(gpio)" >Type <code>gpio</code></a></h2>
+		<table class="function_list">
+		<tr>
+		<td class="name" nowrap="nowrap"><a href="##(gpio).availablelist">gpio.availablelist()</a></td>
+		<td class="summary">
+<p>Lists available GPIO on the system.</p>
+</td>
+		</tr>
+		<tr>
+		<td class="name" nowrap="nowrap"><a href="##(gpio).configure">gpio.configure(id, config)</a></td>
+		<td class="summary">
+<p>Configures the GPIO parameters.</p>
+</td>
+		</tr>
+		<tr>
+		<td class="name" nowrap="nowrap"><a href="##(gpio).enabledlist">gpio.enabledlist()</a></td>
+		<td class="summary">
+<p>Lists enabled GPIOs.</p>
+</td>
+		</tr>
+		<tr>
+		<td class="name" nowrap="nowrap"><a href="##(gpio).getconfig">gpio.getconfig(id)</a></td>
+		<td class="summary">
+<p>Retrieves GPIO configuration.</p>
+</td>
+		</tr>
+		<tr>
+		<td class="name" nowrap="nowrap"><a href="##(gpio).read">gpio.read(id)</a></td>
+		<td class="summary">
+<p>Reads a GPIO value.</p>
+</td>
+		</tr>
+		<tr>
+		<td class="name" nowrap="nowrap"><a href="##(gpio).register">gpio.register(id, userhook)</a></td>
+		<td class="summary">
+<p>Registers a GPIO for monitoring it for changes.</p>
+</td>
+		</tr>
+		<tr>
+		<td class="name" nowrap="nowrap"><a href="##(gpio).write">gpio.write(id, value)</a></td>
+		<td class="summary">
+<p>Writes a GPIO value.</p>
+</td>
+		</tr>
+	</table>
+
+	<h2><a id="#(gpio)" >Type <code>gpio</code></a></h2>
+		<h3>Field(s)</h3>
+		<dl class="function">
+<dt>
+
+<a id="#(gpio).availablelist" >
+<strong>gpio.availablelist()</strong>
+</a>
+</dt>
+<dd>
+	
+<p>Lists available GPIO on the system.</p>
+
+	
+
+<p>The list contains the GPIOs ids that the system claims to be able to manage.
+The list content is not modified by calling other API. In particular, the
+list contains GPIOs that haven't been configured yet (using <a href="##(gpio).configure">gpio.configure</a> API).</p>
+
+<p>Beware, this doesn't mean that every GPIO in the list should be used by a user
+application, some can be already used by hardware drivers or other applications.
+Please check the device and the system documentation to get more precise info.</p>
+
+
+
+		<h3>Return values</h3>
+			<ol>
+				<li>
+				
+
+<p>available GPIOs list when successful</p>
+
+				</li>
+				<li>
+				
+
+<p><code>nil</code> followed by an error message otherwise</p>
+
+
+				</li>
+			</ol>
+			<h3>Usage:</h3>
+		<pre class="example"><code>local gpio = require"gpio"
+local res = gpio.availablelist()
+--On a Raspberry-Pi, res is likely to be:
+-- res = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
+18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36,
+37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53 }
+
+</code></pre>
+
+</dd>
+</dl>
+		<dl class="function">
+<dt>
+
+<a id="#(gpio).configure" >
+<strong>gpio.configure(id, config)</strong>
+</a>
+</dt>
+<dd>
+	
+<p>Configures the GPIO parameters.</p>
+
+	
+
+<p>The parameters that can be set are:</p>
+
+<ul>
+    <li><code>direction</code>: the direction of the GPIO; input or output</li>
+    <li><code>edge</code>: this setting describes when embedded application will be notified for changes:
+    never, on rising edge (from inactive to active) or falling edge (from active to inactive).</li>
+    <li><code>activelow</code>: This setting describes how to interpret the GPIO value:
+    Is high voltage value (e.g.: 3.3V or 5V) to be interpreted as "active"/"on" (the default behavior i.e. <code>activelow</code> set to "0")
+    or as "inactive"/"off" (<code>activelow</code> set to "1").</li>
+</ul>
+
+<p>Before calling this function:</p>
+
+<ul>
+    <li>Required configuration:<br>
+    If no previous configuration (neither automatic nor explicit) has been done for
+    this GPIO, then the first explicit call to <a href="##(gpio).configure">gpio.configure</a> must contain the <code>direction</code>
+    parameter.</li>
+</ul>
+
+
+		<h3>Parameters</h3>
+		<ul>
+				<li>
+				
+<p><code><em> id </em></code>: 
+GPIO id as a number</p>
+
+
+				</li>
+				<li>
+				
+<p><code><em> config </em></code>: 
+a map with fields:</p>
+
+<ul>
+    <li><code>edge</code>: accepted value: "none", "rising", "falling", "both".
+    Beware: changing edge value on a GPIO monitored for change (using <a href="##(gpio).register">gpio.register</a> API).
+    will alter the way notifications are done for this GPIO.</li>
+    <li><code>direction</code>: accepted values (string): "in", "out".</li>
+    <li><code>activelow</code>: accepted values (string): "0", "1".</li>
+</ul>
+
+
+				</li>
+		</ul>
+		<h3>Return values</h3>
+			<ol>
+				<li>
+				
+
+<p>"ok" when successful</p>
+
+				</li>
+				<li>
+				
+
+<p><code>nil</code> followed by an error message otherwise</p>
+
+
+				</li>
+			</ol>
+			<h3>Usage:</h3>
+		<pre class="example"><code>
+local gpio = require"gpio"
+local val = gpio.configure(42, {direction="in", edge="both", activelow="0"})
+
+</code></pre>
+
+</dd>
+</dl>
+		<dl class="function">
+<dt>
+
+<a id="#(gpio).enabledlist" >
+<strong>gpio.enabledlist()</strong>
+</a>
+</dt>
+<dd>
+	
+<p>Lists enabled GPIOs.</p>
+
+	
+
+<p>The list contains the GPIOs ids that have already been activated/configured.
+Using this library, once a GPIO have been activated/configured, it will remain
+"enabled" until system reboot.</p>
+
+<p>Beware, this doesn't mean that every GPIO in the list should be used by a user
+application, some can be already used by hardware drivers or other applications.
+Please check the device and the system documentation to get more precise info.</p>
+
+
+
+		<h3>Return values</h3>
+			<ol>
+				<li>
+				
+
+<p>available GPIOs list when successful</p>
+
+				</li>
+				<li>
+				
+
+<p><code>nil</code> followed by an error message otherwise</p>
+
+
+				</li>
+			</ol>
+			<h3>Usage:</h3>
+		<pre class="example"><code>local gpio = require"gpio"
+gpio.read(4)
+local res = gpio.enabledlist()
+-- If no other application have been using GPIO since last system reboot
+-- then the is likely to be:
+-- res = { 4 }
+
+</code></pre>
+
+</dd>
+</dl>
+		<dl class="function">
+<dt>
+
+<a id="#(gpio).getconfig" >
+<strong>gpio.getconfig(id)</strong>
+</a>
+</dt>
+<dd>
+	
+<p>Retrieves GPIO configuration.</p>
+
+	
+
+<p>See <a href="##(gpio).configure">gpio.configure</a> for available settings.</p>
+
+
+		<h3>Parameter</h3>
+		<ul>
+				<li>
+				
+<p><code><em> id </em></code>: 
+ a number, the gpio id.</p>
+
+
+				</li>
+		</ul>
+		<h3>Return values</h3>
+			<ol>
+				<li>
+				
+
+<p>GPIO configuration as a table</p>
+
+				</li>
+				<li>
+				
+
+<p><code>nil</code> followed by an error message otherwise</p>
+
+
+				</li>
+			</ol>
+			<h3>Usage:</h3>
+		<pre class="example"><code>local gpio = require"gpio"
+local res = gpio.getconfig(4)
+-- res = { direction="in", edge="none", activelow="0" }
+
+</code></pre>
+
+</dd>
+</dl>
+		<dl class="function">
+<dt>
+
+<a id="#(gpio).read" >
+<strong>gpio.read(id)</strong>
+</a>
+</dt>
+<dd>
+	
+<p>Reads a GPIO value.</p>
+
+	
+
+<p>GPIO Configuration:</p>
+
+<ul>
+    <li><p>Default configuration: <br>
+    If the gpio has not been configured (using <a href="##(gpio).configure">gpio.configure</a> API) prior to
+    call this function, then the gpio will be automatically configured using:<br>
+    <code>{direction="in", edge="none", activelow="0"}</code>.</p></li>
+    <li><p>Required configuration:<br>
+    If the gpio have been previously set as output, its the configuration
+    will not be changed, it is very likely to be readable without any error.</p></li>
+</ul>
+
+
+<p>The value returned is impacted by the configuration of the GPIO:<br>
+*   <code>activelow</code> parameter: this parameter will modify the way to interpret
+<code>edge</code> values "rising", "falling".</p>
+
+
+
+		<h3>Parameter</h3>
+		<ul>
+				<li>
+				
+<p><code><em> id </em></code>: 
+ a number, the gpio id.</p>
+
+
+				</li>
+		</ul>
+		<h3>Return values</h3>
+			<ol>
+				<li>
+				
+
+<p>GPIO value as a "string" when successful</p>
+
+				</li>
+				<li>
+				
+
+<p><code>nil</code> followed by an error message otherwise</p>
+
+
+				</li>
+			</ol>
+			<h3>Usage:</h3>
+		<pre class="example"><code>local gpio = require"gpio"
+local val = gpio.read(42)
+
+</code></pre>
+
+</dd>
+</dl>
+		<dl class="function">
+<dt>
+
+<a id="#(gpio).register" >
+<strong>gpio.register(id, userhook)</strong>
+</a>
+</dt>
+<dd>
+	
+<p>Registers a GPIO for monitoring it for changes.</p>
+
+	
+
+<p>Using <code>nil</code> for <code>userhook</code> parameter, this function also enables to cancel
+previous registration.</p>
+
+<p>GPIO Configuration:</p>
+
+<ul>
+    <li><p>Default configuration: <br>
+    If the gpio has not been configured (using <a href="##(gpio).configure">gpio.configure</a> API) prior to
+    call this function, then the gpio will be automatically configured using:<br>
+    <code>{direction="in", edge="both", activelow="0"}</code>.</p></li>
+    <li><p>Required configuration:</p></li>
+</ul>
+
+<p>If the gpio have been previously set as input, its the configuration
+will not be changed.</p>
+
+<p>The behavior of notification  (i.e. when the user callback will be called)
+is impacted by the configuration of the GPIO:
+*   <code>edge</code> parameter: "rising", "falling" and "both" will enable the notification
+and the callback will be called according to the behavior of <code>edge</code> value.
+Using "none" will disable any notification.</p>
+
+<ul>
+    <li><code>activelow</code> parameter: this parameter will modify the way to interpret
+    <code>edge</code> values ("rising", "falling").</li>
+</ul>
+
+
+
+		<h3>Parameters</h3>
+		<ul>
+				<li>
+				
+<p><code><em> id </em></code>: 
+ a number, the gpio id.</p>
+
+				</li>
+				<li>
+				
+<p><code><em> userhook </em></code>: 
+ a function that will be called when a notification is available for the GPIO.</p>
+
+<p>This param can be set to nil to cancel previous registration.
+userhook signature: hook(gpioid, value)</p>
+
+
+				</li>
+		</ul>
+		<h3>Return values</h3>
+			<ol>
+				<li>
+				
+
+<p>"ok" when successful</p>
+
+				</li>
+				<li>
+				
+
+<p><code>nil</code> followed by an error message otherwise</p>
+
+
+				</li>
+			</ol>
+			<h3>Usage:</h3>
+		<pre class="example"><code>local function myhook(id, value)
+print(string.format("GPIO %d has changed! New value = %s", id, value))
+end
+gpio.register(42, myhook)
+-- this may produce this print:
+"GPIO 42 has changed! New value = '1'"
+
+</code></pre>
+
+</dd>
+</dl>
+		<dl class="function">
+<dt>
+
+<a id="#(gpio).write" >
+<strong>gpio.write(id, value)</strong>
+</a>
+</dt>
+<dd>
+	
+<p>Writes a GPIO value.</p>
+
+	
+
+<p>GPIO Configuration:</p>
+
+<ul>
+    <li><p>Default configuration:<br>
+    If the gpio has not been configured (using <a href="##(gpio).configure">gpio.configure</a> API) prior to
+    call this function, then the gpio will be automatically configured using:<br>
+    <code>{direction="out", edge="none", activelow="0"}</code>.</p></li>
+    <li><p>Required configuration:<br>
+    If the GPIO have been previously set as input, its configuration
+    will not be changed and the write call will return an error.</p></li>
+</ul>
+
+
+		<h3>Parameters</h3>
+		<ul>
+				<li>
+				
+<p><code><em> id </em></code>: 
+ a number, the GPIO id</p>
+
+				</li>
+				<li>
+				
+<p><code><em> value </em></code>: 
+ string or number :"0" or 0,"1" or 1, the value to set the GPIO.</p>
+
+
+				</li>
+		</ul>
+		<h3>Return values</h3>
+			<ol>
+				<li>
+				
+
+<p>"ok" on success</p>
+
+				</li>
+				<li>
+				
+
+<p>nil, error string never returns (throws a Lua error instead)</p>
+
+
+				</li>
+			</ol>
+			<h3>Usage:</h3>
+		<pre class="example"><code>local gpio = require"gpio"
+gpio.write(42, 1)
+
+</code></pre>
+
+</dd>
+</dl>
+
+</div>
+
+</div>
+</body>
+</html>
