@@ -1,6 +1,10 @@
 # mihini_lua_fwk
 Eclipse Mihini project for Sierra Wireless Lua framework
 
+Credits: 
+https://blogs.eclipse.org/post/benjamin-cab%C3%A9/introducing-mihini
+https://www.eclipse.org/projects/archives.php
+
 # Workspace setup
 `git clone <this project>`
 
