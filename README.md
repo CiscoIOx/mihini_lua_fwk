@@ -11,7 +11,7 @@ This github project aims to share the details on how to use Eclipse Mihini proje
 ```
 $ git clone <this project>
 # copy your main.lua file into this root level project dir
-$ docker build -t lua_app
+$ docker build -t lua_app .
 
 Note: we are using multiarch docker image with qemu-static emulation. Check out this link for how to setup qemu-user-static for differen OS
 https://www.ecliptik.com/Cross-Building-and-Running-Multi-Arch-Docker-Images/
@@ -36,7 +36,7 @@ SET(CMAKE_CXX_COMPILER /usr/bin/g++)
 8. Update mihini/downloads/eclipse.mihini-incubation-0.9/Source/org.eclipse.mihini-0.9/tools/appmon_daemon/appmon_daemon.c line number 976 from UINT16_MAX to UINT_MAX.
 9. Copy rest of the files in root level of this git project to mihini/downloads/ dir.
 10. Copy your main.lua file into this root level project dir
-10. $ docker build -t lua_app
+10. $ docker build -t lua_app .
 
 # IOx package descriptor file (1 network interface, 1 serial device requested)
 ```
